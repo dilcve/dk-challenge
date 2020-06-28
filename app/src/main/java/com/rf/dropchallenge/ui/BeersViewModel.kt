@@ -25,8 +25,12 @@ class BeersViewModel(
         viewModelScope.launch {
             loading.value = true
             try {
-                val beersAndCustomers = getCustomersFromInputFileUseCase.getInputFileBeerAndCustomers()
-                inputBeers = checkBreweryProblemUseCase.checkBreweryProblem(beersAndCustomers.numBeers, beersAndCustomers.customers)
+                val beersAndCustomers =
+                    getCustomersFromInputFileUseCase.getInputFileBeerAndCustomers()
+                inputBeers = checkBreweryProblemUseCase.checkBreweryProblem(
+                    beersAndCustomers.numBeers,
+                    beersAndCustomers.customers
+                )
                 getBeers(inputBeers.size)
             } catch (e: Exception) {
                 error.value = R.string.error_no_solution
@@ -39,11 +43,13 @@ class BeersViewModel(
 
         viewModelScope.launch {
             loading.value = true
-            beers.value = try {
-                getBeersUseCase.getBeers(numBeers)
+            try {
+                beers.value = getBeersUseCase.getBeers(numBeers).map {
+                    it.type = inputBeers[it.id - 1].type
+                    return@map it
+                }
             } catch (e: Exception) {
                 error.value = R.string.error_generic
-                emptyList()
             }
             loading.value = false
         }

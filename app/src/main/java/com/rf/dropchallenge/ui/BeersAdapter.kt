@@ -40,7 +40,7 @@ class BeersAdapter(private val onItemSelectedListener: (Beer) -> Unit) :
             item = beer
             binding.txtName.text = beer.name
             binding.txtAbv.text = binding.root.context.getString(R.string.beer_abv, beer.abv)
-            binding.txtType.text = beer.type
+            binding.txtType.text = beer.getDescType()
             Glide.with(binding.image)
                 .load(beer.imageUrl)
                 .into(binding.image)
