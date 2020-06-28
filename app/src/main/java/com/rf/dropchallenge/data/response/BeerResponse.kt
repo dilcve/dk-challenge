@@ -4,10 +4,15 @@ import com.google.gson.annotations.SerializedName
 import com.rf.dropchallenge.domain.model.Beer
 
 data class BeerResponse(
+    @SerializedName("id")
     var id: Int,
+    @SerializedName("name")
     var name: String,
+    @SerializedName("abv")
     var abv: String,
+    @SerializedName("description")
     var description: String,
+    @SerializedName("ingredients")
     var ingredients: Ingredients,
     @SerializedName("method")
     var methods: Methods,
@@ -15,14 +20,33 @@ data class BeerResponse(
     var imageUrl: String
 )
 
-data class Methods(@SerializedName("mash_temp") val mashTemp: List<MashTemp>, val fermentation: Fermentation, val twist: String? = null)
-data class MashTemp(val temp: Temp, val duration: Int? = null)
-data class Fermentation(val temp: Temp)
-data class Temp(val value: Int, val unit: String)
-data class Ingredient(val name: String = "", val amount: Amount)
-data class Amount(val value: Double = 0.0, val unit: String = "")
+data class Methods(
+    @SerializedName("mash_temp") val mashTemp: List<MashTemp>,
+    @SerializedName("fermentation") val fermentation: Fermentation,
+    @SerializedName("twist") val twist: String? = null
+)
+
+data class MashTemp(
+    @SerializedName("temp") val temp: Temp,
+    @SerializedName("duration") val duration: Int? = null
+)
+
+data class Fermentation(@SerializedName("temp") val temp: Temp)
+data class Temp(@SerializedName("value") val value: Int, @SerializedName("unit") val unit: String)
+data class Ingredient(
+    @SerializedName("name") val name: String = "",
+    @SerializedName("amount") val amount: Amount
+)
+
+data class Amount(
+    @SerializedName("value") val value: Double = 0.0,
+    @SerializedName("unit") val unit: String = ""
+)
+
 data class Ingredients(
+    @SerializedName("hops")
     val hops: List<Ingredient>,
+    @SerializedName("malt")
     val malt: List<Ingredient>
 )
 

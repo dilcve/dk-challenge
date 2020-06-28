@@ -6,13 +6,15 @@ import androidx.lifecycle.viewModelScope
 import com.rf.dropchallenge.R
 import com.rf.dropchallenge.domain.model.Beer
 import com.rf.dropchallenge.domain.model.InputBeer
+import com.rf.dropchallenge.domain.usecase.CheckBreweryProblemUseCase
 import com.rf.dropchallenge.domain.usecase.GetBeersUseCase
-import com.rf.dropchallenge.domain.usecase.GetCustomersFromInputFile
+import com.rf.dropchallenge.domain.usecase.GetCustomersFromInputFileUseCase
 import kotlinx.coroutines.launch
 
 class BeersViewModel(
     private val getBeersUseCase: GetBeersUseCase,
-    private val getCustomersFromInputFile: GetCustomersFromInputFile
+    private val getCustomersFromInputFileUseCase: GetCustomersFromInputFileUseCase,
+    private val checkBreweryProblemUseCase: CheckBreweryProblemUseCase
 ) : ViewModel() {
     val beers = MutableLiveData<List<Beer>>()
     val loading = MutableLiveData<Boolean>()
@@ -23,7 +25,8 @@ class BeersViewModel(
         viewModelScope.launch {
             loading.value = true
             try {
-                inputBeers = getCustomersFromInputFile.getInputFileAndGetSolution()
+                val beersAndCustomers = getCustomersFromInputFileUseCase.getInputFileBeerAndCustomers()
+                inputBeers = checkBreweryProblemUseCase.checkBreweryProblem(beersAndCustomers.numBeers, beersAndCustomers.customers)
                 getBeers(inputBeers.size)
             } catch (e: Exception) {
                 error.value = R.string.error_no_solution

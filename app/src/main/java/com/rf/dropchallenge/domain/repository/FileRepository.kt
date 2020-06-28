@@ -1,8 +1,6 @@
 package com.rf.dropchallenge.domain.repository
 
-import okhttp3.ResponseBody
-
 interface FileRepository {
 
-   suspend fun getInputFile(): ResponseBody
+   suspend fun getInputFile(): String
 }
