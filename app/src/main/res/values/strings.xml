@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">DropChallenge</string>
+
+    <string name="beer_abv">ABV: %s</string>
+    <string name="beer_name">Name: %s</string>
+    <string name="beer_description">Description: %s</string>
+
+    <string name="header_hops">Hops</string>
+    <string name="header_malts">Malts</string>
+    <string name="header_methods">Methods</string>
+    <string name="beer_fermentation">Fermentation: %d %s</string>
+    <string name="beer_twist">Twist: %s</string>
+    <string name="beer_mash_temp">Mash Temp: %d %s %d</string>
+
+    <string name="error_generic">Something went wrong!</string>
+    <string name="error_no_solution">No solution exists</string>
+</resources>
