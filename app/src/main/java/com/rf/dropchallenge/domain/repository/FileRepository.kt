@@ -4,5 +4,5 @@ import okhttp3.ResponseBody
 
 interface FileRepository {
 
-   suspend fun getInputFile(url: String): ResponseBody
+   suspend fun getInputFile(): ResponseBody
 }

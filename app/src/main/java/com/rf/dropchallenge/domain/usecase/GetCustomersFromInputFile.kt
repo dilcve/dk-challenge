@@ -6,12 +6,9 @@ import com.rf.dropchallenge.domain.repository.FileRepository
 import java.io.BufferedReader
 
 class GetCustomersFromInputFile(private val fileRepository: FileRepository) {
-    private val inputUrl =
-        "https://gist.githubusercontent.com/LuigiPapinoDrop/d8ed153d5431bbad23e1e1c6b5ba1e3c/raw/4ec1c8064e51838240e941679d3ac063460685c2/code_challenge_richer.txt"
-
     suspend fun getInputFileAndGetSolution(): Array<InputBeer> {
 
-        val content = fileRepository.getInputFile(inputUrl).byteStream().bufferedReader()
+        val content = fileRepository.getInputFile().byteStream().bufferedReader()
             .use(BufferedReader::readText)
 
         val beersAndCustomers = getBeersAndCustomersFromInputString(content)

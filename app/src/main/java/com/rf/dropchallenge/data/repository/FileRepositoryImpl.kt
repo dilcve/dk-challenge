@@ -5,9 +5,9 @@ import com.rf.dropchallenge.domain.repository.FileRepository
 import okhttp3.ResponseBody
 
 
-class FileRepositoryImpl(private val beerApiService: BeerApiService) : FileRepository {
-    override suspend fun getInputFile(url: String): ResponseBody =
-        beerApiService.getInputFile(url)
+class FileRepositoryImpl(private val beerApiService: BeerApiService, private val inputUrl: String) : FileRepository {
+    override suspend fun getInputFile(): ResponseBody =
+        beerApiService.getInputFile(inputUrl)
 
 }
 
