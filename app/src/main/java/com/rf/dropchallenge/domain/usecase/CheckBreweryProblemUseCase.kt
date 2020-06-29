@@ -29,7 +29,7 @@ class CheckBreweryProblemUseCase {
         result: Array<InputBeer>
     ) {
         for (customer in customers) {
-            val supportedType = customer.getSupportedBeerType()
+            val supportedType = if(customer.beers.size > 1) "A" else customer.beers.first().type
             for (beer in customer.beers) {
 
                 result[beer.id - 1].run {

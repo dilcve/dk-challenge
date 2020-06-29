@@ -114,6 +114,26 @@ class CheckBreweryProblemUseCaseTest {
     }
 
     @Test
+    fun `brewery problem success 5`() = runBlockingTest {
+
+        val inputStream = javaClass.getResourceAsStream("/test_input_6.txt") ?: throw IOException()
+
+        coEvery { fileRepository.getInputFile() }.coAnswers {
+            inputStream.bufferedReader()
+                .use(BufferedReader::readText)
+        }
+
+        val beersAndCustomers = getCustomersFromInputFileUseCase.getInputFileBeerAndCustomers()
+
+        val result = checkBreweryProblemUseCase.checkBreweryProblem(
+            beersAndCustomers.numBeers,
+            beersAndCustomers.customers
+        )
+        val resultString = result.joinToString(" ", transform = { it.type })
+        Assert.assertEquals("B C C C C", resultString)
+    }
+
+    @Test
     fun `brewery problem error 1`() = runBlockingTest {
 
         val inputStream = javaClass.getResourceAsStream("/test_input_2.txt") ?: throw IOException()
