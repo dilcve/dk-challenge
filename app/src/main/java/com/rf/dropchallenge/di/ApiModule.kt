@@ -1,7 +1,7 @@
 package com.rf.dropchallenge.di
 
 import com.rf.dropchallenge.BuildConfig
-import com.rf.dropchallenge.data.api.BeerApiService
+import com.rf.dropchallenge.data.api.ApiService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.core.qualifier.named
@@ -31,7 +31,7 @@ val apiModule = module {
             .client(get(qualifier = named<OkHttpClient>()))
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-            .create(BeerApiService::class.java)
+            .create(ApiService::class.java)
     }
 
     single(named("inputUrl")) {

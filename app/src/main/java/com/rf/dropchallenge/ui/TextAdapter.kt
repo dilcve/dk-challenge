@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.rf.dropchallenge.databinding.ListItemTextBinding
 
-class TextAdapter() :
+class TextAdapter :
     RecyclerView.Adapter<TextAdapter.TextViewHolder>() {
 
     private var text: List<String> = listOf()

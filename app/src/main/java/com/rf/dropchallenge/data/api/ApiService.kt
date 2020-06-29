@@ -6,7 +6,7 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 import retrofit2.http.Url
 
-interface BeerApiService {
+interface ApiService {
 
     @GET("/v2/beers/?page=1")
     suspend fun getBeers(@Query("per_page") numBeers: Int): List<BeerResponse>

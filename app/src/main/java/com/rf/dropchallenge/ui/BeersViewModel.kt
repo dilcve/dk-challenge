@@ -22,7 +22,7 @@ class BeersViewModel(
     val beers = MutableLiveData<List<Beer>>()
     val loading = MutableLiveData<Boolean>()
     val error = MutableLiveData<Int>()
-    var inputBeers = arrayOf<InputBeer>()
+    private var inputBeers = arrayOf<InputBeer>()
 
     fun getFileAndGetSolution() {
         viewModelScope.launch(appDispatcher.getIO()) {
