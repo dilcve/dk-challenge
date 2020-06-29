@@ -9,6 +9,8 @@ import com.rf.dropchallenge.domain.usecase.GetBeersUseCase
 import com.rf.dropchallenge.domain.usecase.GetCustomersFromInputFileUseCase
 import com.rf.dropchallenge.ui.BeerSharedViewModel
 import com.rf.dropchallenge.ui.BeersViewModel
+import com.rf.dropchallenge.util.AppDispatcher
+import com.rf.dropchallenge.util.AppDispatcherImpl
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.qualifier.named
 import org.koin.dsl.bind
@@ -18,11 +20,12 @@ import org.koin.dsl.module
 val appModule = module {
 
     single { BeersRepositoryImpl(get()) } bind BeersRepository::class
-    single { FileRepositoryImpl(get(),get(named("inputUrl"))) } bind FileRepository::class
+    single { FileRepositoryImpl(get(), get(named("inputUrl"))) } bind FileRepository::class
+    single { AppDispatcherImpl() } bind AppDispatcher::class
     single { GetBeersUseCase(get()) }
     single { GetCustomersFromInputFileUseCase(get()) }
-    single { CheckBreweryProblemUseCase()}
+    single { CheckBreweryProblemUseCase() }
 
-    viewModel { BeersViewModel(get(),get(), get()) }
+    viewModel { BeersViewModel(get(), get(), get(), get()) }
     viewModel { BeerSharedViewModel() }
 }

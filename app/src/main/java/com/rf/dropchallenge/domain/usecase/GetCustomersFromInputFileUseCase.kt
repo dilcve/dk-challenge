@@ -22,7 +22,6 @@ class GetCustomersFromInputFileUseCase(private val fileRepository: FileRepositor
             val noSpaceLine = splitContent[i].replace(" ", "")
             val beers = mutableListOf<InputBeer>()
             for (j in 0 until noSpaceLine.length - 1 step 2) {
-                println("${noSpaceLine[j]}${noSpaceLine[j + 1]}")
                 beers.add(
                     InputBeer(
                         id = noSpaceLine[j].toString().toInt(),
