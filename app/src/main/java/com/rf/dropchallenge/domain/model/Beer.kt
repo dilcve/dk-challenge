@@ -1,7 +1,5 @@
 package com.rf.dropchallenge.domain.model
 
-import com.rf.dropchallenge.data.response.Methods
-
 data class Beer(
     val id: Int,
     val name: String,
@@ -21,3 +19,19 @@ data class Beer(
 }
 
 data class Ingredient(val name: String, val amount: String)
+data class Methods(
+    val mashTemp: List<MashTemp>,
+    val fermentation: Fermentation,
+    val twist: String? = null
+)
+
+data class MashTemp(
+    val temp: Temp,
+    val duration: Int? = null
+)
+
+data class Fermentation(val temp: Temp)
+data class Temp(
+    val value: Int,
+    val unit: String
+)

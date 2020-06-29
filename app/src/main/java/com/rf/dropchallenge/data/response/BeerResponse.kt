@@ -1,7 +1,7 @@
 package com.rf.dropchallenge.data.response
 
 import com.google.gson.annotations.SerializedName
-import com.rf.dropchallenge.domain.model.Beer
+import com.rf.dropchallenge.domain.model.*
 
 data class BeerResponse(
     @SerializedName("id")
@@ -13,41 +13,45 @@ data class BeerResponse(
     @SerializedName("description")
     var description: String,
     @SerializedName("ingredients")
-    var ingredients: Ingredients,
+    var ingredients: IngredientsResponse,
     @SerializedName("method")
-    var methods: Methods,
+    var methods: MethodsResponse,
     @SerializedName("image_url")
     var imageUrl: String
 )
 
-data class Methods(
-    @SerializedName("mash_temp") val mashTemp: List<MashTemp>,
-    @SerializedName("fermentation") val fermentation: Fermentation,
+data class MethodsResponse(
+    @SerializedName("mash_temp") val mashTemp: List<MashTempResponse>,
+    @SerializedName("fermentation") val fermentation: FermentationResponse,
     @SerializedName("twist") val twist: String? = null
 )
 
-data class MashTemp(
-    @SerializedName("temp") val temp: Temp,
+data class MashTempResponse(
+    @SerializedName("temp") val temp: TempResponse,
     @SerializedName("duration") val duration: Int? = null
 )
 
-data class Fermentation(@SerializedName("temp") val temp: Temp)
-data class Temp(@SerializedName("value") val value: Int, @SerializedName("unit") val unit: String)
-data class Ingredient(
-    @SerializedName("name") val name: String = "",
-    @SerializedName("amount") val amount: Amount
+data class FermentationResponse(@SerializedName("temp") val temp: TempResponse)
+data class TempResponse(
+    @SerializedName("value") val value: Int,
+    @SerializedName("unit") val unit: String
 )
 
-data class Amount(
+data class IngredientResponse(
+    @SerializedName("name") val name: String = "",
+    @SerializedName("amount") val amount: AmountResponse
+)
+
+data class AmountResponse(
     @SerializedName("value") val value: Double = 0.0,
     @SerializedName("unit") val unit: String = ""
 )
 
-data class Ingredients(
+data class IngredientsResponse(
     @SerializedName("hops")
-    val hops: List<Ingredient>,
+    val hops: List<IngredientResponse>,
     @SerializedName("malt")
-    val malt: List<Ingredient>
+    val malt: List<IngredientResponse>
 )
 
 fun BeerResponse.mapTo() = Beer(
@@ -58,10 +62,16 @@ fun BeerResponse.mapTo() = Beer(
     imageUrl = imageUrl,
     hops = this.ingredients.hops.map { it.mapTo() },
     malts = this.ingredients.malt.map { it.mapTo() },
-    methods = this.methods
+    methods = this.methods.mapTo()
 )
 
-fun Ingredient.mapTo() = com.rf.dropchallenge.domain.model.Ingredient(
+fun IngredientResponse.mapTo() = Ingredient(
     name = this.name,
     amount = "${this.amount.value} ${this.amount.unit}"
 )
+
+fun MethodsResponse.mapTo() =
+    Methods(this.mashTemp.map { it.mapTo() }, this.fermentation.mapTo(), this.twist)
+
+fun FermentationResponse.mapTo() = Fermentation(Temp(this.temp.value, this.temp.unit))
+fun MashTempResponse.mapTo() = MashTemp(Temp(this.temp.value, this.temp.unit), this.duration)
