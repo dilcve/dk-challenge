@@ -91,11 +91,13 @@ class CheckBreweryProblemUseCase {
             it.beers.size == 1
         }
 
-        //check if the supported beer type per client and add the beer to the result array
-        getFirstBatchDraftBasedOnOneBeerCustomersPreferences(oneBeerCustomers, result)
+        if (oneBeerCustomers.isNotEmpty()) {
+            //check if the supported beer type per client and add the beer to the result array
+            getFirstBatchDraftBasedOnOneBeerCustomersPreferences(oneBeerCustomers, result)
 
-        //checking if each user is getting at least one beer he likes
-        checkIfCustomersHasAtLeastOneHeLikes(moreThanOneBeerCustomers, result)
+            //checking if each user is getting at least one beer he likes
+            checkIfCustomersHasAtLeastOneHeLikes(moreThanOneBeerCustomers, result)
+        }
 
         //convert any remaining "A" to "C"
         result.map { if (it.isAny()) it.type = "C" }

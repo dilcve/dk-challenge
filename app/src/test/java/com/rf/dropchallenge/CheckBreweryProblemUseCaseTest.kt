@@ -257,6 +257,50 @@ class CheckBreweryProblemUseCaseTest {
     }
 
     @Test
+    fun `brewery problem success 6`() = runBlockingTest {
+
+        val inputStream = javaClass.getResourceAsStream("/test_input_7.txt") ?: throw IOException()
+
+        coEvery { fileRepository.getInputFile() }.coAnswers {
+            inputStream.bufferedReader()
+                .use(BufferedReader::readText)
+        }
+
+        val beersAndCustomers = getCustomersFromInputFileUseCase.getInputFileBeerAndCustomers()
+
+        val result = checkBreweryProblemUseCase.checkBreweryProblem(
+            beersAndCustomers.numBeers,
+            beersAndCustomers.customers
+        )
+        val resultString = result.joinToString(" ", transform = { it.type })
+        Assert.assertEquals("C C C C C", resultString)
+
+        val oldWay = measureTimeMillis { checkBreweryProblemUseCase.checkBreweryProblem(
+            beersAndCustomers.numBeers,
+            beersAndCustomers.customers
+        ) }
+
+        val newWay = measureTimeMillis { checkBreweryProblemUseCase.checkBreweryProblemNew(
+            beersAndCustomers.numBeers,
+            beersAndCustomers.customers
+        ) }
+
+        val oldWayNs = measureNanoTime { checkBreweryProblemUseCase.checkBreweryProblem(
+            beersAndCustomers.numBeers,
+            beersAndCustomers.customers
+        ) }
+
+        val newWayNs = measureNanoTime { checkBreweryProblemUseCase.checkBreweryProblemNew(
+            beersAndCustomers.numBeers,
+            beersAndCustomers.customers
+        ) }
+
+        println(resultString)
+        println("old way: $oldWay ms -- $oldWayNs ns")
+        println("new way: $newWay ms -- $newWayNs ns")
+    }
+
+    @Test
     fun `brewery problem error 1`() = runBlockingTest {
 
         val inputStream = javaClass.getResourceAsStream("/test_input_2.txt") ?: throw IOException()
