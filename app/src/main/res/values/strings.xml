@@ -17,5 +17,5 @@
     <string name="error_generic">Something went wrong!</string>
     <string name="error_no_solution">No solution exists</string>
 
-    <string name="lbl_ok">Ok</string>
+    <string name="lbl_ok">OK</string>
 </resources>
