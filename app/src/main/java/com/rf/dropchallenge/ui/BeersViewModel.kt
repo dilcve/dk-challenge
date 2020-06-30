@@ -22,19 +22,19 @@ class BeersViewModel(
     val beers = MutableLiveData<List<Beer>>()
     val loading = MutableLiveData<Boolean>()
     val error = MutableLiveData<Int>()
-    private var inputBeers = arrayOf<InputBeer>()
 
     fun getFileAndGetSolution() {
         viewModelScope.launch(appDispatcher.getIO()) {
             loading.postValue(true)
             try {
                 val beersAndCustomers =
-                    getCustomersFromInputFileUseCase.getInputFileBeerAndCustomers()
-                inputBeers = checkBreweryProblemUseCase.checkBreweryProblem(
+                    getCustomersFromInputFileUseCase.getInputFileBeersAndCustomers()
+
+                val inputBeers = checkBreweryProblemUseCase.checkBreweryProblemNew(
                     beersAndCustomers.numBeers,
                     beersAndCustomers.customers
                 )
-                getBeers(inputBeers.size)
+                getBeers(inputBeers)
             } catch (e: Exception) {
                 Log.e(this@BeersViewModel.javaClass.simpleName, "error: $e")
                 error.postValue(R.string.error_no_solution)
@@ -43,12 +43,12 @@ class BeersViewModel(
         }
     }
 
-    private fun getBeers(numBeers: Int) {
+    private fun getBeers(inputBeers: Array<InputBeer>) {
 
         viewModelScope.launch(appDispatcher.getIO()) {
             loading.postValue(true)
             try {
-                beers.postValue(getBeersUseCase.getBeers(numBeers).map {
+                beers.postValue(getBeersUseCase.getBeers(inputBeers.size).map {
                     it.type = inputBeers[it.id - 1].type
                     return@map it
                 })

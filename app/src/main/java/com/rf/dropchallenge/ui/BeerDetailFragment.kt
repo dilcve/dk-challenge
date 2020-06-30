@@ -51,9 +51,7 @@ class BeerDetailFragment : Fragment() {
                 methodsAdapter
             )
         }
-
         subscribe()
-
     }
 
     private fun fillUi(beer: Beer) {
@@ -67,7 +65,9 @@ class BeerDetailFragment : Fragment() {
 
         hopsAdapter.setItems(beer.hops.map { "${it.name} ${it.amount}" })
         maltsAdapter.setItems(beer.malts.map { "${it.name} ${it.amount}" })
-        val methods = emptyList<String>().toMutableList()
+
+        val methods = mutableListOf<String>()
+
         methods.addAll(beer.methods.mashTemp.map {
             getString(
                 R.string.beer_mash_temp,
@@ -75,8 +75,8 @@ class BeerDetailFragment : Fragment() {
                 it.temp.unit,
                 it.duration
             )
-        }
-            .toMutableList())
+        }.toMutableList())
+
         methods.add(
             getString(
                 R.string.beer_fermentation,

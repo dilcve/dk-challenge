@@ -43,7 +43,7 @@ class CheckBreweryProblemUseCaseTest {
                 .use(BufferedReader::readText)
         }
 
-        val beersAndCustomers = getCustomersFromInputFileUseCase.getInputFileBeerAndCustomers()
+        val beersAndCustomers = getCustomersFromInputFileUseCase.getInputFileBeersAndCustomers()
 
         val result = checkBreweryProblemUseCase.checkBreweryProblem(
             beersAndCustomers.numBeers,
@@ -87,7 +87,7 @@ class CheckBreweryProblemUseCaseTest {
                 .use(BufferedReader::readText)
         }
 
-        val beersAndCustomers = getCustomersFromInputFileUseCase.getInputFileBeerAndCustomers()
+        val beersAndCustomers = getCustomersFromInputFileUseCase.getInputFileBeersAndCustomers()
 
         val result = checkBreweryProblemUseCase.checkBreweryProblem(
             beersAndCustomers.numBeers,
@@ -134,7 +134,7 @@ class CheckBreweryProblemUseCaseTest {
                 .use(BufferedReader::readText)
         }
 
-        val beersAndCustomers = getCustomersFromInputFileUseCase.getInputFileBeerAndCustomers()
+        val beersAndCustomers = getCustomersFromInputFileUseCase.getInputFileBeersAndCustomers()
 
         val result = checkBreweryProblemUseCase.checkBreweryProblem(
             beersAndCustomers.numBeers,
@@ -178,7 +178,7 @@ class CheckBreweryProblemUseCaseTest {
                 .use(BufferedReader::readText)
         }
 
-        val beersAndCustomers = getCustomersFromInputFileUseCase.getInputFileBeerAndCustomers()
+        val beersAndCustomers = getCustomersFromInputFileUseCase.getInputFileBeersAndCustomers()
 
         val result = checkBreweryProblemUseCase.checkBreweryProblem(
             beersAndCustomers.numBeers,
@@ -222,7 +222,7 @@ class CheckBreweryProblemUseCaseTest {
                 .use(BufferedReader::readText)
         }
 
-        val beersAndCustomers = getCustomersFromInputFileUseCase.getInputFileBeerAndCustomers()
+        val beersAndCustomers = getCustomersFromInputFileUseCase.getInputFileBeersAndCustomers()
 
         val result = checkBreweryProblemUseCase.checkBreweryProblem(
             beersAndCustomers.numBeers,
@@ -266,7 +266,7 @@ class CheckBreweryProblemUseCaseTest {
                 .use(BufferedReader::readText)
         }
 
-        val beersAndCustomers = getCustomersFromInputFileUseCase.getInputFileBeerAndCustomers()
+        val beersAndCustomers = getCustomersFromInputFileUseCase.getInputFileBeersAndCustomers()
 
         val result = checkBreweryProblemUseCase.checkBreweryProblem(
             beersAndCustomers.numBeers,
@@ -310,7 +310,7 @@ class CheckBreweryProblemUseCaseTest {
                 .use(BufferedReader::readText)
         }
 
-        val beersAndCustomers = getCustomersFromInputFileUseCase.getInputFileBeerAndCustomers()
+        val beersAndCustomers = getCustomersFromInputFileUseCase.getInputFileBeersAndCustomers()
 
         try {
             checkBreweryProblemUseCase.checkBreweryProblem(

@@ -11,7 +11,11 @@
     <string name="beer_fermentation">Fermentation: %d %s</string>
     <string name="beer_twist">Twist: %s</string>
     <string name="beer_mash_temp">Mash Temp: %d %s %d</string>
+    <string name="btn_idle">Idle</string>
+    <string name="btn_done">Done</string>
 
     <string name="error_generic">Something went wrong!</string>
     <string name="error_no_solution">No solution exists</string>
+
+    <string name="lbl_ok">Ok</string>
 </resources>

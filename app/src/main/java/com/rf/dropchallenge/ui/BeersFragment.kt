@@ -50,7 +50,6 @@ class BeersFragment : Fragment() {
         }
 
         subscribe()
-
     }
 
     private fun subscribe() {
@@ -64,11 +63,9 @@ class BeersFragment : Fragment() {
                 it,
                 Snackbar.LENGTH_INDEFINITE
             ).apply {
-                setAction("Ok") { this.dismiss() }
+                setAction(R.string.lbl_ok) { this.dismiss() }
                     .show()
             }
-
         })
     }
-
 }

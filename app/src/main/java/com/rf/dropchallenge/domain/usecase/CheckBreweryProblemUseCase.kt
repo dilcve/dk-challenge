@@ -20,7 +20,6 @@ class CheckBreweryProblemUseCase {
         //convert any remaining "A" to "C"
         result.map { if (it.isAny()) it.type = "C" }
 
-//        println(result.joinToString(" ", transform = { it.type }))
         return result
     }
 
@@ -53,9 +52,11 @@ class CheckBreweryProblemUseCase {
 
             var isSatisfied = false
             var couldSatisfyWithB: InputBeer? = null
+
             for (beer in customer.beers) {
 
                 isSatisfied = result[beer.id - 1] == beer
+
                 if (isSatisfied) {
                     break
                 } else {
@@ -92,7 +93,7 @@ class CheckBreweryProblemUseCase {
         }
 
         if (oneBeerCustomers.isNotEmpty()) {
-            //check if the supported beer type per client and add the beer to the result array
+            //set one beer client beers into result array and check if there is any conflict between them
             getFirstBatchDraftBasedOnOneBeerCustomersPreferences(oneBeerCustomers, result)
 
             //checking if each user is getting at least one beer he likes
@@ -102,7 +103,6 @@ class CheckBreweryProblemUseCase {
         //convert any remaining "A" to "C"
         result.map { if (it.isAny()) it.type = "C" }
 
-//        println(result.joinToString(" ", transform = { it.type }))
         return result
     }
 

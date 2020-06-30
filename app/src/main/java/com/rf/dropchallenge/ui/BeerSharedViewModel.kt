@@ -6,6 +6,5 @@ import com.rf.dropchallenge.domain.model.Beer
 
 class BeerSharedViewModel : ViewModel() {
     val selectedBeer = MutableLiveData<Beer>()
-
 }
 

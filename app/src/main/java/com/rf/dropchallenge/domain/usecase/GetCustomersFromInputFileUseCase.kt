@@ -5,7 +5,7 @@ import com.rf.dropchallenge.domain.model.InputCustomer
 import com.rf.dropchallenge.domain.repository.FileRepository
 
 class GetCustomersFromInputFileUseCase(private val fileRepository: FileRepository) {
-    suspend fun getInputFileBeerAndCustomers(): BeersAndCustomers {
+    suspend fun getInputFileBeersAndCustomers(): BeersAndCustomers {
 
         val content = fileRepository.getInputFile()
 

@@ -32,6 +32,7 @@ data class MashTempResponse(
 )
 
 data class FermentationResponse(@SerializedName("temp") val temp: TempResponse)
+
 data class TempResponse(
     @SerializedName("value") val value: Int,
     @SerializedName("unit") val unit: String
@@ -74,4 +75,5 @@ fun MethodsResponse.mapTo() =
     Methods(this.mashTemp.map { it.mapTo() }, this.fermentation.mapTo(), this.twist)
 
 fun FermentationResponse.mapTo() = Fermentation(Temp(this.temp.value, this.temp.unit))
+
 fun MashTempResponse.mapTo() = MashTemp(Temp(this.temp.value, this.temp.unit), this.duration)
