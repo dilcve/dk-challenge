@@ -13,6 +13,8 @@ import org.junit.Before
 import org.junit.Test
 import java.io.BufferedReader
 import java.io.IOException
+import kotlin.system.measureNanoTime
+import kotlin.system.measureTimeMillis
 
 @ExperimentalCoroutinesApi
 class CheckBreweryProblemUseCaseTest {
@@ -47,8 +49,32 @@ class CheckBreweryProblemUseCaseTest {
             beersAndCustomers.numBeers,
             beersAndCustomers.customers
         )
-        val resultString = result.joinToString(" ", transform = { it.type })
+        val resultString =  result.joinToString(" ", transform = { it.type })
         Assert.assertEquals("C C C C B", resultString)
+
+        val oldWay = measureTimeMillis { checkBreweryProblemUseCase.checkBreweryProblem(
+            beersAndCustomers.numBeers,
+            beersAndCustomers.customers
+        ) }
+
+        val newWay = measureTimeMillis { checkBreweryProblemUseCase.checkBreweryProblemNew(
+            beersAndCustomers.numBeers,
+            beersAndCustomers.customers
+        ) }
+
+        val oldWayNs = measureNanoTime { checkBreweryProblemUseCase.checkBreweryProblem(
+            beersAndCustomers.numBeers,
+            beersAndCustomers.customers
+        ) }
+
+        val newWayNs = measureNanoTime { checkBreweryProblemUseCase.checkBreweryProblemNew(
+            beersAndCustomers.numBeers,
+            beersAndCustomers.customers
+        ) }
+
+        println(resultString)
+        println("old way: $oldWay ms -- $oldWayNs ns")
+        println("new way: $newWay ms -- $newWayNs ns")
     }
 
     @Test
@@ -69,6 +95,31 @@ class CheckBreweryProblemUseCaseTest {
         )
         val resultString = result.joinToString(" ", transform = { it.type })
         Assert.assertEquals("C B C B C", resultString)
+
+        val oldWay = measureTimeMillis { checkBreweryProblemUseCase.checkBreweryProblem(
+            beersAndCustomers.numBeers,
+            beersAndCustomers.customers
+        ) }
+
+        val newWay = measureTimeMillis { checkBreweryProblemUseCase.checkBreweryProblemNew(
+            beersAndCustomers.numBeers,
+            beersAndCustomers.customers
+        ) }
+
+        val oldWayNs = measureNanoTime { checkBreweryProblemUseCase.checkBreweryProblem(
+            beersAndCustomers.numBeers,
+            beersAndCustomers.customers
+        ) }
+
+        val newWayNs = measureNanoTime { checkBreweryProblemUseCase.checkBreweryProblemNew(
+            beersAndCustomers.numBeers,
+            beersAndCustomers.customers
+        ) }
+
+        println(resultString)
+        println("old way: $oldWay ms -- $oldWayNs ns")
+        println("new way: $newWay ms -- $newWayNs ns")
+
 
 
     }
@@ -91,6 +142,30 @@ class CheckBreweryProblemUseCaseTest {
         )
         val resultString = result.joinToString(" ", transform = { it.type })
         Assert.assertEquals("B B", resultString)
+
+        val oldWay = measureTimeMillis { checkBreweryProblemUseCase.checkBreweryProblem(
+            beersAndCustomers.numBeers,
+            beersAndCustomers.customers
+        ) }
+
+        val newWay = measureTimeMillis { checkBreweryProblemUseCase.checkBreweryProblemNew(
+            beersAndCustomers.numBeers,
+            beersAndCustomers.customers
+        ) }
+
+        val oldWayNs = measureNanoTime { checkBreweryProblemUseCase.checkBreweryProblem(
+            beersAndCustomers.numBeers,
+            beersAndCustomers.customers
+        ) }
+
+        val newWayNs = measureNanoTime { checkBreweryProblemUseCase.checkBreweryProblemNew(
+            beersAndCustomers.numBeers,
+            beersAndCustomers.customers
+        ) }
+
+        println(resultString)
+        println("old way: $oldWay ms -- $oldWayNs ns")
+        println("new way: $newWay ms -- $newWayNs ns")
     }
 
     @Test
@@ -111,6 +186,30 @@ class CheckBreweryProblemUseCaseTest {
         )
         val resultString = result.joinToString(" ", transform = { it.type })
         Assert.assertEquals("B B B", resultString)
+
+        val oldWay = measureTimeMillis { checkBreweryProblemUseCase.checkBreweryProblem(
+            beersAndCustomers.numBeers,
+            beersAndCustomers.customers
+        ) }
+
+        val newWay = measureTimeMillis { checkBreweryProblemUseCase.checkBreweryProblemNew(
+            beersAndCustomers.numBeers,
+            beersAndCustomers.customers
+        ) }
+
+        val oldWayNs = measureNanoTime { checkBreweryProblemUseCase.checkBreweryProblem(
+            beersAndCustomers.numBeers,
+            beersAndCustomers.customers
+        ) }
+
+        val newWayNs = measureNanoTime { checkBreweryProblemUseCase.checkBreweryProblemNew(
+            beersAndCustomers.numBeers,
+            beersAndCustomers.customers
+        ) }
+
+        println(resultString)
+        println("old way: $oldWay ms -- $oldWayNs ns")
+        println("new way: $newWay ms -- $newWayNs ns")
     }
 
     @Test
@@ -131,6 +230,30 @@ class CheckBreweryProblemUseCaseTest {
         )
         val resultString = result.joinToString(" ", transform = { it.type })
         Assert.assertEquals("B C C C C", resultString)
+
+        val oldWay = measureTimeMillis { checkBreweryProblemUseCase.checkBreweryProblem(
+            beersAndCustomers.numBeers,
+            beersAndCustomers.customers
+        ) }
+
+        val newWay = measureTimeMillis { checkBreweryProblemUseCase.checkBreweryProblemNew(
+            beersAndCustomers.numBeers,
+            beersAndCustomers.customers
+        ) }
+
+        val oldWayNs = measureNanoTime { checkBreweryProblemUseCase.checkBreweryProblem(
+            beersAndCustomers.numBeers,
+            beersAndCustomers.customers
+        ) }
+
+        val newWayNs = measureNanoTime { checkBreweryProblemUseCase.checkBreweryProblemNew(
+            beersAndCustomers.numBeers,
+            beersAndCustomers.customers
+        ) }
+
+        println(resultString)
+        println("old way: $oldWay ms -- $oldWayNs ns")
+        println("new way: $newWay ms -- $newWayNs ns")
     }
 
     @Test

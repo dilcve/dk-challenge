@@ -20,7 +20,7 @@ class CheckBreweryProblemUseCase {
         //convert any remaining "A" to "C"
         result.map { if (it.isAny()) it.type = "C" }
 
-        println(result.joinToString(" ", transform = { it.type }))
+//        println(result.joinToString(" ", transform = { it.type }))
         return result
     }
 
@@ -29,7 +29,7 @@ class CheckBreweryProblemUseCase {
         result: Array<InputBeer>
     ) {
         for (customer in customers) {
-            val supportedType = if(customer.beers.size > 1) "A" else customer.beers.first().type
+            val supportedType = if (customer.beers.size > 1) "A" else customer.beers.first().type
             for (beer in customer.beers) {
 
                 result[beer.id - 1].run {
@@ -76,6 +76,49 @@ class CheckBreweryProblemUseCase {
                     //only satisfy it with Barrel Aged if wasn't possible with Classic
                     result[this.id - 1].type = this.type
                 } ?: throw IllegalStateException("No solution exists")
+            }
+        }
+    }
+
+    //new way
+    fun checkBreweryProblemNew(
+        numBeers: Int,
+        customers: List<InputCustomer>
+    ): Array<InputBeer> {
+        val result = Array(numBeers) { InputBeer(1, "A") }
+
+        val (oneBeerCustomers, moreThanOneBeerCustomers) = customers.partition {
+            it.beers.size == 1
+        }
+
+        //check if the supported beer type per client and add the beer to the result array
+        getFirstBatchDraftBasedOnOneBeerCustomersPreferences(oneBeerCustomers, result)
+
+        //checking if each user is getting at least one beer he likes
+        checkIfCustomersHasAtLeastOneHeLikes(moreThanOneBeerCustomers, result)
+
+        //convert any remaining "A" to "C"
+        result.map { if (it.isAny()) it.type = "C" }
+
+//        println(result.joinToString(" ", transform = { it.type }))
+        return result
+    }
+
+    private fun getFirstBatchDraftBasedOnOneBeerCustomersPreferences(
+        customers: List<InputCustomer>,
+        result: Array<InputBeer>
+    ) {
+
+        for (customer in customers) {
+            val beer = customer.beers.first()
+
+            result[beer.id - 1].run {
+
+                if (!this.isAny() && this.type != beer.type) {
+                    throw IllegalStateException("No solution exists")
+                } else {
+                    result[beer.id - 1] = beer
+                }
             }
         }
     }
