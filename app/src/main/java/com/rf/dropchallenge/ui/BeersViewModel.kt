@@ -6,12 +6,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.rf.dropchallenge.R
 import com.rf.dropchallenge.domain.model.Beer
-import com.rf.dropchallenge.domain.model.InputBeer
 import com.rf.dropchallenge.domain.usecase.CheckBreweryProblemUseCase
 import com.rf.dropchallenge.domain.usecase.GetBeersUseCase
 import com.rf.dropchallenge.domain.usecase.GetCustomersFromInputFileUseCase
 import com.rf.dropchallenge.util.AppDispatcher
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class BeersViewModel(
     private val getBeersUseCase: GetBeersUseCase,
@@ -30,31 +30,27 @@ class BeersViewModel(
                 val beersAndCustomers =
                     getCustomersFromInputFileUseCase.getInputFileBeersAndCustomers()
 
-                val inputBeers = checkBreweryProblemUseCase.checkBreweryProblemNew(
-                    beersAndCustomers.numBeers,
-                    beersAndCustomers.customers
-                )
-                getBeers(inputBeers)
+                withContext(appDispatcher.getDefault()) {
+                    val inputBeers = checkBreweryProblemUseCase.checkBreweryProblemNew(
+                        beersAndCustomers.numBeers,
+                        beersAndCustomers.customers
+                    )
+
+                    withContext(appDispatcher.getIO()) {
+//                        getBeers(inputBeers)
+                        beers.postValue(getBeersUseCase.getBeers(inputBeers.size).map {
+                            it.type = inputBeers[it.id - 1].type
+                            return@map it
+                        })
+                    }
+                }
             } catch (e: Exception) {
                 Log.e(this@BeersViewModel.javaClass.simpleName, "error: $e")
-                error.postValue(R.string.error_no_solution)
-            }
-            loading.postValue(false)
-        }
-    }
-
-    private fun getBeers(inputBeers: Array<InputBeer>) {
-
-        viewModelScope.launch(appDispatcher.getIO()) {
-            loading.postValue(true)
-            try {
-                beers.postValue(getBeersUseCase.getBeers(inputBeers.size).map {
-                    it.type = inputBeers[it.id - 1].type
-                    return@map it
-                })
-            } catch (e: Exception) {
-                Log.e(this@BeersViewModel.javaClass.simpleName, "error: $e")
-                error.postValue(R.string.error_generic)
+                if (e is IllegalStateException) {
+                    error.postValue(R.string.error_no_solution)
+                } else {
+                    error.postValue(R.string.error_generic)
+                }
             }
             loading.postValue(false)
         }
